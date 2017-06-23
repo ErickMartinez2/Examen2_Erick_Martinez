@@ -25,6 +25,9 @@ public class Principal extends javax.swing.JFrame {
     Rusos ruso_seleccionado;
     Alemanes aleman_seleccionado;
     Alumnos alumno_seleccionado;
+    Admin_Rusos ar = new Admin_Rusos("./rusos.siberia");
+    Admin_Alemanes aa = new Admin_Alemanes("./alemanes.nazi");
+    Admin_Alumnos aa2 = new Admin_Alumnos("./alumnos.xxx");
 
     /**
      * Creates new form Principal
@@ -32,6 +35,15 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         this.setLocationRelativeTo(this);
+        ar.cargarArchivo();
+        Rusia = ar.getListaRusos();
+        ar.escribirArchivo();
+        aa.cargarArchivo();
+        Alemania = aa.getListaAlemanes();
+        aa.escribirArchivo();
+        aa2.cargarArchivo();
+        Programacion = aa2.getListaAlumnos();
+        aa2.escribirArchivo();
     }
 
     /**
@@ -176,6 +188,10 @@ public class Principal extends javax.swing.JFrame {
         tf_grado = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        jLabel55 = new javax.swing.JLabel();
+        jLabel56 = new javax.swing.JLabel();
+        tf_ganador = new javax.swing.JTextField();
+        jButton7 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -1182,15 +1198,53 @@ public class Principal extends javax.swing.JFrame {
 
         tab.addTab("Alumnos", jPanel3);
 
+        jLabel55.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel55.setText("Simulaciòn");
+
+        jLabel56.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel56.setText("Ganador");
+
+        tf_ganador.setEditable(false);
+
+        jButton7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jButton7.setText("Empezar");
+        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton7MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 870, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(345, 345, 345)
+                        .addComponent(jLabel55))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(288, 288, 288)
+                        .addComponent(jLabel56)
+                        .addGap(18, 18, 18)
+                        .addComponent(tf_ganador, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(346, 346, 346)
+                        .addComponent(jButton7)))
+                .addContainerGap(328, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 333, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel55)
+                .addGap(46, 46, 46)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tf_ganador, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel56))
+                .addGap(52, 52, 52)
+                .addComponent(jButton7)
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         tab.addTab("Simulacion", jPanel4);
@@ -1277,7 +1331,11 @@ public class Principal extends javax.swing.JFrame {
                             }
                         }
                     }
-                    Rusia.add(new Rusos(tf_nombre.getText(), Integer.parseInt(tf_id.getText()), Integer.parseInt(tf_edad.getText()), tf_rango.getText(), Integer.parseInt(tf_edad.getText()) * 8, Arma, fuego));
+                    Rusos r = new Rusos(tf_nombre.getText(), Integer.parseInt(tf_id.getText()), Integer.parseInt(tf_edad.getText()), tf_rango.getText(), Integer.parseInt(tf_edad.getText()) * 8, Arma, fuego);
+                    Rusia.add(r);
+                    ar.cargarArchivo();
+                    ar.setRuso(r);
+                    ar.escribirArchivo();
                     JOptionPane.showMessageDialog(this, "Ruso Agregado Exitosamente!");
                     tf_nombre.setText("");
                     tf_id.setText("");
@@ -1334,7 +1392,11 @@ public class Principal extends javax.swing.JFrame {
                     }
                 }
             }
-            Alemania.add(new Alemanes(tf_alias.getText(), Integer.parseInt(tf_edad1.getText()), tf_casta.getText(), Integer.parseInt(tf_edad1.getText()) * 8, Arma, fuego));
+            Alemanes a = new Alemanes(tf_alias.getText(), Integer.parseInt(tf_edad1.getText()), tf_casta.getText(), Integer.parseInt(tf_edad1.getText()) * 8, Arma, fuego);
+            Alemania.add(a);
+            aa.cargarArchivo();
+            aa.setAleman(a);
+            aa.escribirArchivo();
             JOptionPane.showMessageDialog(this, "Aleman Agregado Exitosamente!");
             tf_alias.setText("");
             tf_edad1.setText("");
@@ -1387,7 +1449,11 @@ public class Principal extends javax.swing.JFrame {
                         }
                     }
                 }
-                Programacion.add(new Alumnos(tf_apodo.getText(), Integer.parseInt(tf_cuenta.getText()), Integer.parseInt(tf_edad2.getText()), Integer.parseInt(tf_edad2.getText()) * 8, tf_grado.getText(), Arma, fuego));
+                Alumnos a2 = new Alumnos(tf_apodo.getText(), Integer.parseInt(tf_cuenta.getText()), Integer.parseInt(tf_edad2.getText()), Integer.parseInt(tf_edad2.getText()) * 8, tf_grado.getText(), Arma, fuego);
+                Programacion.add(a2);
+                aa2.cargarArchivo();
+                aa2.setAlumno(a2);
+                aa2.escribirArchivo();
                 JOptionPane.showMessageDialog(this, "Alumno Agregado Exitosamente!");
                 tf_apodo.setText("");
                 tf_cuenta.setText("");
@@ -1554,6 +1620,19 @@ public class Principal extends javax.swing.JFrame {
                         }
                     }
                     CargarArbol();
+                    ar.cargarArchivo();
+                    for (int i = 0; i < ar.getListaRusos().size(); i++) {
+                        if (ar.getListaRusos().get(i) == ruso_seleccionado) {
+                            ar.getListaRusos().get(i).setNombre(tf_nombre1.getText());
+                            ar.getListaRusos().get(i).setID(Integer.parseInt(tf_id1.getText()));
+                            ar.getListaRusos().get(i).setEdad(Integer.parseInt(tf_edad3.getText()));
+                            ar.getListaRusos().get(i).setRango(tf_rango1.getText());
+                            ar.getListaRusos().get(i).setResistencia(Integer.parseInt(tf_edad3.getText()) * 8);
+                            ar.getListaRusos().get(i).setArma(Arma);
+                            ar.getListaRusos().get(i).setFuego(fuego);
+                        }
+                    }
+                    ar.escribirArchivo();
                     JOptionPane.showMessageDialog(this, "Ruso Modificado Exitosamente!");
                     tf_nombre1.setText("");
                     tf_id1.setText("");
@@ -1622,6 +1701,18 @@ public class Principal extends javax.swing.JFrame {
                 }
             }
             CargarArbol();
+            aa.cargarArchivo();
+            for (int i = 0; i < aa.getListaAlemanes().size(); i++) {
+                if (aa.getListaAlemanes().get(i) == aleman_seleccionado) {
+                    aa.getListaAlemanes().get(i).setAlias(tf_alias1.getText());
+                    aa.getListaAlemanes().get(i).setEdad(Integer.parseInt(tf_edad4.getText()));
+                    aa.getListaAlemanes().get(i).setCasta(tf_casta1.getText());
+                    aa.getListaAlemanes().get(i).setResistencia(Integer.parseInt(tf_edad4.getText()) * 8);
+                    aa.getListaAlemanes().get(i).setArma(Arma);
+                    aa.getListaAlemanes().get(i).setFuego(fuego);
+                }
+            }
+            aa.escribirArchivo();
             JOptionPane.showMessageDialog(this, "Aleman Modificado Exitosamente!");
             tf_alias1.setText("");
             tf_edad4.setText("");
@@ -1686,6 +1777,19 @@ public class Principal extends javax.swing.JFrame {
                     }
                 }
                 CargarArbol();
+                aa2.cargarArchivo();
+                for (int i = 0; i < aa2.getListaAlumnos().size(); i++) {
+                    if (aa2.getListaAlumnos().get(i) == alumno_seleccionado) {
+                        aa2.getListaAlumnos().get(i).setApodo(tf_apodo1.getText());
+                        aa2.getListaAlumnos().get(i).setCuenta(Integer.parseInt(tf_cuenta1.getText()));
+                        aa2.getListaAlumnos().get(i).setEdad(Integer.parseInt(tf_edad5.getText()));
+                        aa2.getListaAlumnos().get(i).setResistencia(Integer.parseInt(tf_edad5.getText()) * 8);
+                        aa2.getListaAlumnos().get(i).setGrado(tf_grado1.getText());
+                        aa2.getListaAlumnos().get(i).setArma(Arma);
+                        aa2.getListaAlumnos().get(i).setFuego(fuego);
+                    }
+                }
+                aa2.escribirArchivo();
                 JOptionPane.showMessageDialog(this, "Alumno Modificado Exitosamente!");
                 tf_apodo1.setText("");
                 tf_cuenta1.setText("");
@@ -1710,31 +1814,56 @@ public class Principal extends javax.swing.JFrame {
                 if (Rusia.get(i) == ruso_seleccionado) {
                     Rusia.remove(i);
                     CargarArbol();
-                    JOptionPane.showMessageDialog(this, "Ruso Eliminado!");
                 }
             }
+            ar.cargarArchivo();
+            for (int i = 0; i < ar.getListaRusos().size(); i++) {
+                if (ar.getListaRusos().get(i) == ruso_seleccionado) {
+                    ar.getListaRusos().remove(i);
+                }
+            }
+            ar.escribirArchivo();
+            JOptionPane.showMessageDialog(this, "Ruso Eliminado!");
         } else {
             if (nodo_seleccionado.getUserObject() instanceof Alemanes) {
                 for (int i = 0; i < Alemania.size(); i++) {
                     if (Alemania.get(i) == aleman_seleccionado) {
                         Alemania.remove(i);
                         CargarArbol();
-                        JOptionPane.showMessageDialog(this, "Aleman Eliminado!");
                     }
                 }
+                aa.cargarArchivo();
+                for (int i = 0; i < aa.getListaAlemanes().size(); i++) {
+                    if (aa.getListaAlemanes().get(i) == aleman_seleccionado) {
+                        aa.getListaAlemanes().remove(i);
+                    }
+                }
+                aa.escribirArchivo();
+                JOptionPane.showMessageDialog(this, "Aleman Eliminado!");
             } else {
                 if (nodo_seleccionado.getUserObject() instanceof Alumnos) {
                     for (int i = 0; i < Programacion.size(); i++) {
                         if (Programacion.get(i) == alumno_seleccionado) {
                             Programacion.remove(i);
                             CargarArbol();
-                            JOptionPane.showMessageDialog(this, "Alumno Eliminado!");
                         }
                     }
+                    aa2.cargarArchivo();
+                    for (int i = 0; i < aa2.getListaAlumnos().size(); i++) {
+                        if (aa2.getListaAlumnos().get(i) == alumno_seleccionado) {
+                            aa2.getListaAlumnos().remove(i);
+                        }
+                    }
+                    aa2.escribirArchivo();
+                    JOptionPane.showMessageDialog(this, "Alumno Eliminado!");
                 }
             }
         }
     }//GEN-LAST:event_jm_eliminarActionPerformed
+
+    private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
+        
+    }//GEN-LAST:event_jButton7MouseClicked
 
     private void CargarArbol() {
         DefaultTreeModel m = (DefaultTreeModel) jt_arbol.getModel();
@@ -1835,6 +1964,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1885,6 +2015,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1928,6 +2060,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField tf_fuego3;
     private javax.swing.JTextField tf_fuego4;
     private javax.swing.JTextField tf_fuego5;
+    private javax.swing.JTextField tf_ganador;
     private javax.swing.JTextField tf_grado;
     private javax.swing.JTextField tf_grado1;
     private javax.swing.JTextField tf_id;

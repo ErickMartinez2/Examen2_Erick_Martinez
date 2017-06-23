@@ -5,11 +5,13 @@
  */
 package examen2_erick_martinez;
 
+import java.io.Serializable;
+
 /**
  *
  * @author usuario
  */
-public class Rusos {
+public class Rusos implements Serializable{
 
     public String nombre;
     public int ID;
@@ -18,6 +20,7 @@ public class Rusos {
     public int resistencia;
     public String arma;
     public int fuego;
+    private static final long SerialVersion = 777L;
 
     public Rusos(String nombre, int ID, int edad, String rango, int resistencia, String arma, int fuego) {
         this.nombre = nombre;

@@ -5,11 +5,13 @@
  */
 package examen2_erick_martinez;
 
+import java.io.Serializable;
+
 /**
  *
  * @author usuario
  */
-public class Alumnos {
+public class Alumnos implements Serializable{
     public String apodo;
     public int cuenta;
     public int edad;
@@ -17,6 +19,7 @@ public class Alumnos {
     public String grado;
     public String arma;
     public int fuego;
+    private static final long SerialVersion = 999L;
 
     public int getFuego() {
         return fuego;

@@ -5,17 +5,20 @@
  */
 package examen2_erick_martinez;
 
+import java.io.Serializable;
+
 /**
  *
  * @author usuario
  */
-public class Alemanes {
+public class Alemanes implements Serializable {
     public String alias;
     public int edad;
     public String casta;
     public int resistencia;
     public String arma;
     public int fuego;
+    private static final long SerialVersion = 888L;
 
     public int getFuego() {
         return fuego;
