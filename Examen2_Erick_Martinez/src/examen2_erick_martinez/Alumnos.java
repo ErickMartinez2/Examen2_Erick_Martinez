@@ -83,4 +83,11 @@ public class Alumnos {
     public void setArma(String arma) {
         this.arma = arma;
     }
+
+    @Override
+    public String toString() {
+        return apodo;
+    }
+    
+    
 }

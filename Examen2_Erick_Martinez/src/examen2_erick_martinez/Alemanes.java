@@ -73,4 +73,11 @@ public class Alemanes {
     public void setArma(String arma) {
         this.arma = arma;
     }
+
+    @Override
+    public String toString() {
+        return alias;
+    }
+    
+    
 }

@@ -84,4 +84,11 @@ public class Rusos {
     public void setFuego(int fuego) {
         this.fuego = fuego;
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+    
+    
 }
