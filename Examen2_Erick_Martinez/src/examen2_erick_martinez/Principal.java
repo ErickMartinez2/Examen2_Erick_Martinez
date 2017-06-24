@@ -192,6 +192,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel56 = new javax.swing.JLabel();
         tf_ganador = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -1208,9 +1209,17 @@ public class Principal extends javax.swing.JFrame {
 
         jButton7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton7.setText("Empezar");
-        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jButton8.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jButton8.setText("Borrar");
+        jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton7MouseClicked(evt);
+                jButton8MouseClicked(evt);
             }
         });
 
@@ -1225,26 +1234,31 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(jLabel55))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(288, 288, 288)
-                        .addComponent(jLabel56)
-                        .addGap(18, 18, 18)
-                        .addComponent(tf_ganador, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(346, 346, 346)
-                        .addComponent(jButton7)))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jButton7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton8))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel56)
+                                .addGap(18, 18, 18)
+                                .addComponent(tf_ganador, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(328, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(30, 30, 30)
                 .addComponent(jLabel55)
-                .addGap(46, 46, 46)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tf_ganador, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel56))
-                .addGap(52, 52, 52)
-                .addComponent(jButton7)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addGap(45, 45, 45)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel56)
+                    .addComponent(tf_ganador, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton7)
+                    .addComponent(jButton8))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         tab.addTab("Simulacion", jPanel4);
@@ -1722,6 +1736,7 @@ public class Principal extends javax.swing.JFrame {
             arma_14.setSelected(false);
             arma_15.setSelected(false);
             tf_fuego4.setText("");
+            jd_modificar2.setVisible(false);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Datos Incorrectos!");
         }
@@ -1800,6 +1815,7 @@ public class Principal extends javax.swing.JFrame {
                 arma_18.setSelected(false);
                 tf_fuego5.setText("");
                 tf_grado1.setText("");
+                jd_modificar2.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(this, "El alumno no esta calificado por ser menor de 16 años!");
             }
@@ -1861,9 +1877,232 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jm_eliminarActionPerformed
 
-    private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
-        
-    }//GEN-LAST:event_jButton7MouseClicked
+    private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
+        tf_ganador.setText("");
+    }//GEN-LAST:event_jButton8MouseClicked
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        try {
+            int ganador = 0;
+            int turno = 1;
+            do {
+                switch (turno) {
+                    case 1:
+                        if (!Rusia.isEmpty()) {
+                            int num = 0;
+                            for (int i = 0; i < Rusia.size(); i++) {
+                                Rusos rusia = ((Rusos) Rusia.get(i));
+                                int fuego = rusia.getFuego();
+                                if (!Alemania.isEmpty()) {
+                                    if (i < Alemania.size()) {
+                                        Alemanes alemania = ((Alemanes) Alemania.get(i));
+                                        int resistencia = alemania.getResistencia();
+                                        int salud = resistencia - fuego;
+                                        if (salud <= 0) {
+                                            Alemania.remove(i);
+                                        } else {
+                                            alemania.setResistencia(salud);
+                                        }
+                                        num = i;
+                                    } else {
+                                        Alemanes alemania = ((Alemanes) Alemania.get(num));
+                                        int resistencia = alemania.getResistencia();
+                                        int salud = resistencia - fuego;
+                                        if (salud <= 0) {
+                                            Alemania.remove(num);
+                                        } else {
+                                            alemania.setResistencia(salud);
+                                        }
+                                    }
+                                }
+                            }
+                            int num2 = 0;
+                            for (int i = 0; i < Rusia.size(); i++) {
+                                Rusos rusia = ((Rusos) Rusia.get(i));
+                                int fuego = rusia.getFuego();
+                                if (!Programacion.isEmpty()) {
+                                    if (i < Programacion.size()) {
+                                        Alumnos programacion = ((Alumnos) Programacion.get(i));
+                                        int resistencia = programacion.getResistencia();
+                                        int salud = resistencia - fuego;
+                                        if (salud <= 0) {
+                                            Programacion.remove(i);
+                                        } else {
+                                            programacion.setResistencia(salud);
+                                        }
+                                        num2 = i;
+                                    } else {
+                                        Alumnos programacion = ((Alumnos) Programacion.get(num2));
+                                        int resistencia = programacion.getResistencia();
+                                        int salud = resistencia - fuego;
+                                        if (salud <= 0) {
+                                            Programacion.remove(num2);
+                                        } else {
+                                            programacion.setResistencia(salud);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        turno++;
+                        break;
+                    case 2:
+                        if (!Alemania.isEmpty()) {
+                            int num3 = 0;
+                            for (int i = 0; i < Alemania.size(); i++) {
+                                Alemanes alemania = ((Alemanes) Alemania.get(i));
+                                int fuego = alemania.getFuego();
+                                if (!Rusia.isEmpty()) {
+                                    if (i < Rusia.size()) {
+                                        Rusos rusia = ((Rusos) Rusia.get(i));
+                                        int resistencia = rusia.getResistencia();
+                                        int salud = resistencia - fuego;
+                                        if (salud <= 0) {
+                                            Rusia.remove(i);
+                                        } else {
+                                            rusia.setResistencia(salud);
+                                        }
+                                        num3 = i;
+                                    } else {
+                                        Rusos rusia = ((Rusos) Rusia.get(num3));
+                                        int resistencia = rusia.getResistencia();
+                                        int salud = resistencia - fuego;
+                                        if (salud <= 0) {
+                                            Alemania.remove(num3);
+                                        } else {
+                                            rusia.setResistencia(salud);
+                                        }
+                                    }
+                                }
+                            }
+                            int num4 = 0;
+                            for (int i = 0; i < Alemania.size(); i++) {
+                                Alemanes alemania = ((Alemanes) Alemania.get(i));
+                                int fuego = alemania.getFuego();
+                                if (!Programacion.isEmpty()) {
+                                    if (i < Programacion.size()) {
+                                        Alumnos programacion = ((Alumnos) Programacion.get(i));
+                                        int resistencia = programacion.getResistencia();
+                                        int salud = resistencia - fuego;
+                                        if (salud <= 0) {
+                                            Programacion.remove(i);
+                                        } else {
+                                            programacion.setResistencia(salud);
+                                        }
+                                        num4 = i;
+                                    } else {
+                                        Alumnos programacion = ((Alumnos) Programacion.get(num4));
+                                        int resistencia = programacion.getResistencia();
+                                        int salud = resistencia - fuego;
+                                        if (salud <= 0) {
+                                            Programacion.remove(num4);
+                                        } else {
+                                            programacion.setResistencia(salud);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        turno++;
+                        break;
+                    case 3:
+                        if (!Programacion.isEmpty()) {
+                            int num5 = 0;
+                            for (int i = 0; i < Programacion.size(); i++) {
+                                Alumnos programacion = ((Alumnos) Programacion.get(i));
+                                int fuego = programacion.getFuego();
+                                if (!Rusia.isEmpty()) {
+                                    if (i < Rusia.size()) {
+                                        Rusos rusia = ((Rusos) Rusia.get(i));
+                                        int resistencia = rusia.getResistencia();
+                                        int salud = resistencia - fuego;
+                                        if (salud <= 0) {
+                                            Rusia.remove(i);
+                                        } else {
+                                            rusia.setResistencia(salud);
+                                        }
+                                        num5 = i;
+                                    } else {
+                                        Rusos rusia = ((Rusos) Rusia.get(num5));
+                                        int resistencia = rusia.getResistencia();
+                                        int salud = resistencia - fuego;
+                                        if (salud <= 0) {
+                                            Rusia.remove(num5);
+                                        } else {
+                                            rusia.setResistencia(salud);
+                                        }
+                                    }
+                                }
+                            }
+                            int num6 = 0;
+                            for (int i = 0; i < Programacion.size(); i++) {
+                                Alumnos programacion = ((Alumnos) Programacion.get(i));
+                                int fuego = programacion.getFuego();
+                                if (!Alemania.isEmpty()) {
+                                    if (i < Alemania.size()) {
+                                        Alemanes alemania = ((Alemanes) Alemania.get(i));
+                                        int resistencia = alemania.getResistencia();
+                                        int salud = resistencia - fuego;
+                                        if (salud <= 0) {
+                                            Alemania.remove(num6);
+                                        } else {
+                                            alemania.setResistencia(salud);
+                                        }
+                                        num6 = i;
+                                    } else {
+                                        Alemanes alemania = ((Alemanes) Alemania.get(num6));
+                                        int resistencia = alemania.getResistencia();
+                                        int salud = resistencia - fuego;
+                                        if (salud <= 0) {
+                                            Alemania.remove(num6);
+                                        } else {
+                                            alemania.setResistencia(salud);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        turno = 1;
+                        break;
+                }
+                if (Rusia.isEmpty() && Alemania.isEmpty() && Programacion.isEmpty()) {
+                    tf_ganador.setText("Empate!");
+                    ganador = 1;
+                } else {
+                    if ((Rusia.isEmpty() && Alemania.isEmpty())) {
+                        tf_ganador.setText("Ganador Alumnos!");
+                        ganador = 1;
+                    } else {
+                        if ((Rusia.isEmpty() && Programacion.isEmpty())) {
+                            tf_ganador.setText("Ganador Alemania!");
+                            ganador = 1;
+                        } else {
+                            if ((Programacion.isEmpty() && Alemania.isEmpty())) {
+                                tf_ganador.setText("Ganador Rusos!");
+                                ganador = 1;
+                            }
+                        }
+                    }
+                }
+            } while (ganador == 0);
+            /*ar.cargarArchivo();
+            Rusia = new ArrayList();
+            Rusia = ar.getListaRusos();
+            ar.escribirArchivo();
+            aa.cargarArchivo();
+            Alemania = new ArrayList();
+            Alemania = aa.getListaAlemanes();
+            aa.escribirArchivo();
+            aa2.cargarArchivo();
+            Programacion = new ArrayList();
+            Programacion = aa2.getListaAlumnos();
+            aa2.escribirArchivo();*/
+            CargarArbol();
+            JOptionPane.showMessageDialog(this, "Simulacion Terminada!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     private void CargarArbol() {
         DefaultTreeModel m = (DefaultTreeModel) jt_arbol.getModel();
@@ -1965,6 +2204,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
